@@ -2,6 +2,10 @@
 const baseURL = "https://api.meaningcloud.com/sentiment-2.1?key="
 const apiKey = process.env.MC_API_KEY;
 
+// document.getElementById('title').addEventListener('click', ()=>{ // TO-DO works with webpack fine
+//     console.log("event fired")
+// })
+
 async function handleSubmit(e) {
     e.preventDefault()
 

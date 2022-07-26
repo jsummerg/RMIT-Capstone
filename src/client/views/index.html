@@ -9,7 +9,7 @@
     <header>
         <div class="logo">
             <img src="https://via.placeholder.com/100x50" alt="logo">
-            <h1>Travelah</h1>
+            <h1 id="title">Travelah</h1>
         </div>
         <nav>
             <ul>
@@ -24,7 +24,8 @@
             <p>Please input your details:</p>
         </section>
         <section>
-            <form class="mainForm" onsubmit="return Client.handleSubmit(event)">
+            <!-- TO-DO remove event listeners from html -->
+            <form class="mainForm" onsubmit="return Client.handleSubmit(event)"> 
                 <input id="name" type="text" name="input" value="" placeholder="Name">
                 <input type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
             </form>
@@ -37,7 +38,7 @@
     <footer>
         <div class="logo">
             <img src="https://via.placeholder.com/100x50" alt="logo">
-            <h1>Travelah</h1>
+            <h2>Travelah</h2>
         </div>
         <div id="socials"> <!--  leads to blank pages for now -->
             <a href="http://" target="_blank" rel="noopener noreferrer"><img src="https://via.placeholder.com/50" alt="Twitter"></a>
