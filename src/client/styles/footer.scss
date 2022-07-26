@@ -1,5 +1,9 @@
 @import "variables";
 
 footer {
-    background: $primary-color
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    background: $primary-color;
+    color: $white;
 }

@@ -1,5 +1,6 @@
 # Project Information
-To showcase the introduction of webpacks and their benefits to a project
+Travel app designed to showcase the skills learnt over the course
+TO-DO
 ## Table of contents
 
 - [Installation](##installation)
@@ -11,7 +12,9 @@ Step 1: run the following in the console
 ```
 npm install --legacy-peer-deps
 ```
-Step 2: Pick server
+Step 2: .env file
+ - Create a .env file based off .env.template and replace the ### with your own api key
+Step 3: Pick server
 - For production server
 ```
 npm run build-prod
@@ -26,10 +29,10 @@ npm run start
 ```
 npm run build-dev-live
 ```
-Step 3: To perform tests with jest
+Step 4: To perform tests with jest
 ```
 npm run test
 ```
 ## Usage
 [(Back to top)](##table-of-contents)
-Input a sentence into the form to have it ran through Natural Language Processing (NLP) and be given real information on how that sentence is interpredied and understood
+TO-DO

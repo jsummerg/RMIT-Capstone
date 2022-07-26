@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>NLP</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <title>Travelah</title>
+</head>
 
-    <body>
-        <header>
-            <div class="logo">
-                Logo
-            </div>
-            <div class="nav">
-                navigation
-            </div>
-        </header>
-
-        <main>
-            <section>
-                <form class="mainForm" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" placeholder="Name"> <!-- OnBlur function removed -->
-                    <input type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
-                </form>
-            </section>
-
-            <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
-            </section>
-        </main>
-
-        <footer>
-            <p>This is a footer</p>
-        </footer>
-        <script>
-            // Check that service workers are supported
-            if ('serviceWorker' in navigator) {
-                // Use the window load event to keep the page load performant
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/service-worker.js');
-                });
-            }
-           </script>
-    </body>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://via.placeholder.com/100x50" alt="logo">
+            <h1>Travelah</h1>
+        </div>
+        <nav>
+            <ul>
+                <li>Homepage</li>
+                <li>Login</li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Welcome to the app</h2>
+            <p>Please input your details:</p>
+        </section>
+        <section>
+            <form class="mainForm" onsubmit="return Client.handleSubmit(event)">
+                <input id="name" type="text" name="input" value="" placeholder="Name">
+                <input type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+            </form>
+        </section>
+        <section>
+            <strong>Form Results:</strong>
+            <div id="results"></div>
+        </section>
+    </main>
+    <footer>
+        <div class="logo">
+            <img src="https://via.placeholder.com/100x50" alt="logo">
+            <h1>Travelah</h1>
+        </div>
+        <div id="socials"> <!--  leads to blank pages for now -->
+            <a href="http://" target="_blank" rel="noopener noreferrer"><img src="https://via.placeholder.com/50" alt="Twitter"></a>
+            <a href="http://" target="_blank" rel="noopener noreferrer"><img src="https://via.placeholder.com/50" alt="Facebook"></a>
+            <a href="http://" target="_blank" rel="noopener noreferrer"><img src="https://via.placeholder.com/50" alt="Instagram"></a>
+        </div>
+    </footer>
+    <!-- <script> // Reactivate towards the end of the project
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+        </script> -->
+</body>
 </html>

@@ -1,7 +1,6 @@
 // Require
 var path = require('path')
 const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
 const bodyParser = require('body-parser');
 // const fetch = require('node-fetch') TO-DO
 
@@ -42,12 +41,8 @@ app.get('/data', function (req, res) { // TO-DO Verify
 })
 
 // Designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
-    console.log('Example app listening on port 8081!')
-})
-
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+app.listen(3001, function () {
+    console.log('Example app listening on port 3001!')
 })
 
 app.post('/add', function (req, res) {
