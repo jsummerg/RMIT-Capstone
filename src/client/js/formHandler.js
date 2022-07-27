@@ -1,13 +1,16 @@
 // API Call Variables
-const geoBaseURL = "http://api.geonames.org/postalCodeSearchJSON?"
+const geoBaseURL = "http://api.geonames.org/searchJSON?"
 const geoUser = process.env.GEO_USER
 const curWethbitBaseURL = "https://api.weatherbit.io/v2.0/current?" // For current weather
 const forWethbitBaseURL = "https://api.weatherbit.io/v2.0/forecast/daily?" // For forecast weather
 const wethbitApi = process.env.WEATHERBIT_API
+const pixBaseURL = "https://pixabay.com/api/?key="
+const pixApi = process.env.PIXABAY_API
 
 // http://api.geonames.org/postalCodeSearchJSON?placename=Melbourne&maxRows=5&username=demo example geoname api call
 // https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=API_KEY example current weatherbit api call
 // https://api.weatherbit.io/v2.0/forecast/daily?lat=35.7796&lon=-78.6382&key=API_KEY example forecast weatherbit api call
+// https://pixabay.com/api/?key=API_KEY&q=Melbourne&category=travel&orientation=horizontal&per_page=5 example pixabay api call
 
 
 document.getElementById('destForm').addEventListener('submit', handleSubmit)
@@ -24,20 +27,28 @@ async function handleSubmit(e){
 
     getGeoName(geoBaseURL, dest, geoUser) // Get geo name location
     .then(function(geoData){
+        console.log(geoData.geonames[0].countryCode) // TO-DO Remove
         if (daysTill < 7) { // If arrival date is less than 16 days
-            getCurrentWeather(curWethbitBaseURL, geoData.postalCodes[0].lat, geoData.postalCodes[0].lng, wethbitApi)
+            getCurrentWeather(curWethbitBaseURL, geoData.geonames[0].lat, geoData.geonames[0].lng, wethbitApi)
             .then(function(curData){
                 console.log(curData.data[0].temp) // TO-DO impliment into UI
+                console.log(curData.data[0].datetime)
             })
         } else if (daysTill > 16) { // If arrival date is greater than 16 days
             console.log("Cannot forecast weather this far ahead") // TO-DO impliment into UI
         } else { // If arrival date is between 7-16 days
-            getForecastWeather(forWethbitBaseURL, geoData.postalCodes[0].lat, geoData.postalCodes[0].lng, wethbitApi)
+            getForecastWeather(forWethbitBaseURL, geoData.geonames[0].lat, geoData.geonames[0].lng, wethbitApi)
             .then(function(forData){
                 console.log(forData.data[daysTill - 1].temp) // TO-DO impliment into UI
+                console.log(forData.data[daysTill - 1].valid_date)
             })
         }
-        console.log(geoData.postalCodes[0].countryCode) // TO-DO Remove
+        console.log(pixApi)
+        getDestImg(pixBaseURL, geoData.geonames[0].name, pixApi)
+        .then(function(imgData){
+            console.log(imgData.hits[0].webformatURL)
+        })
+        
         // postData('/add', {latitude: data.postalCodes[0].lat, longitude: data.postalCodes[0].lng, country: data.postalCodes[0].countryCode, placeName: data.postalCodes[0].placeName}) // TO-DO fix exact values
         // updateUI() // Update UI to display the data
     })
@@ -47,10 +58,10 @@ async function handleSubmit(e){
 
 //Get geo name data
 const getGeoName = async (geoBaseURL, dest, geoUser) =>{
-    const res = await fetch(`${geoBaseURL}placename=${dest}&maxRows=5&username=${geoUser}`)
+    const res = await fetch(`${geoBaseURL}name=${dest}&maxRows=5&username=${geoUser}`)
     try { //API call using the baseurl, zipcode and api key
         const data = await res.json()
-        console.log(data)
+        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
@@ -62,7 +73,7 @@ const getCurrentWeather = async (forWethbitBaseURL, lat, lon, wethbitApi) =>{
     const res = await fetch(`${forWethbitBaseURL}lat=${lat}&lon=${lon}&key=${wethbitApi}`)
     try { //API call using the baseurl, zipcode and api key
         const data = await res.json()
-        console.log(data)
+        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
@@ -74,16 +85,24 @@ const getForecastWeather = async (curWethbitBaseURL, lat, lon, wethbitApi) =>{
     const res = await fetch(`${curWethbitBaseURL}lat=${lat}&lon=${lon}&key=${wethbitApi}`)
     try { //API call using the baseurl, zipcode and api key
         const data = await res.json()
-        console.log(data)
+        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
     }
 }
 
-
-
-
+//Get image of destination 
+const getDestImg = async (pixBaseURL, dest, pixApi) =>{ // https://pixabay.com/api/?key=API_KEY&q=yellow+flowers&orientation=horizontal&per_page=5
+    const res = await fetch(`${pixBaseURL}${pixApi}&q=${encodeURIComponent(dest)}&orientation=horizontal&category=travel&per_page=5`)
+    try { //API call using the baseurl, zipcode and api key
+        const data = await res.json()
+        console.log(data) // TO-DO Remove
+        return data
+    } catch(error) {
+        console.log("error", error)
+    }
+}
 
 
 
