@@ -1,9 +1,13 @@
 // API Call Variables
 const geoBaseURL = "http://api.geonames.org/postalCodeSearchJSON?"
 const geoUser = process.env.GEO_USER
-const apiKey = process.env.MC_API_KEY
+const curWethbitBaseURL = "https://api.weatherbit.io/v2.0/current?" // For current weather
+const forWethbitBaseURL = "https://api.weatherbit.io/v2.0/forecast/daily?" // For forecast weather
+const wethbitApi = process.env.WEATHERBIT_API
 
 // http://api.geonames.org/postalCodeSearchJSON?placename=Melbourne&maxRows=5&username=demo example geoname api call
+// https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=API_KEY example current weatherbit api call
+// https://api.weatherbit.io/v2.0/forecast/daily?lat=35.7796&lon=-78.6382&key=API_KEY example forecast weatherbit api call
 
 
 document.getElementById('destForm').addEventListener('submit', handleSubmit)
@@ -19,8 +23,19 @@ async function handleSubmit(e){
     console.log(`Days until trip: ${daysTill}`) // TO-DO impliment into UI
 
     getGeoName(geoBaseURL, dest, geoUser) // Get geo name location
-    .then(function(data){
-        console.log(data.postalCodes[0].countryCode) // TO-DO Remove
+    .then(function(geoData){
+        if (daysTill < 7) {
+            getCurrentWeather(curWethbitBaseURL, geoData.postalCodes[0].lat, geoData.postalCodes[0].lng, wethbitApi)
+            .then(function(curData){
+                console.log(curData)
+            })
+        } else {
+            getForecastWeather(forWethbitBaseURL, data.postalCodes[0].lat, data.postalCodes[0].lng, wethbitApi)
+            .then(function(forData){
+                console.log(forData)
+            })
+        }
+        console.log(geoData.postalCodes[0].countryCode) // TO-DO Remove
         // postData('/add', {latitude: data.postalCodes[0].lat, longitude: data.postalCodes[0].lng, country: data.postalCodes[0].countryCode, placeName: data.postalCodes[0].placeName}) // TO-DO fix exact values
         // updateUI() // Update UI to display the data
     })
@@ -28,9 +43,33 @@ async function handleSubmit(e){
 }
 
 
-//Get Data from weather api
+//Get geo name data
 const getGeoName = async (geoBaseURL, dest, geoUser) =>{
     const res = await fetch(`${geoBaseURL}placename=${dest}&maxRows=5&username=${geoUser}`)
+    try { //API call using the baseurl, zipcode and api key
+        const data = await res.json()
+        console.log(data)
+        return data
+    } catch(error) {
+        console.log("error", error)
+    }
+}
+
+//Get Current Weather
+const getCurrentWeather = async (forWethbitBaseURL, lat, lon, wethbitApi) =>{
+    const res = await fetch(`${forWethbitBaseURL}lat=${lat}&lon=${lon}&key=${wethbitApi}`)
+    try { //API call using the baseurl, zipcode and api key
+        const data = await res.json()
+        console.log(data)
+        return data
+    } catch(error) {
+        console.log("error", error)
+    }
+}
+
+//Get Forecast Weather
+const getForecastWeather = async (curWethbitBaseURL, lat, lon, wethbitApi) =>{
+    const res = await fetch(`${curWethbitBaseURL}lat=${lat}&lon=${lon}&key=${wethbitApi}`)
     try { //API call using the baseurl, zipcode and api key
         const data = await res.json()
         console.log(data)
