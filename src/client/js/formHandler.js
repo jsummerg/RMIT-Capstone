@@ -3,7 +3,7 @@ const geoBaseURL = "http://api.geonames.org/postalCodeSearchJSON?"
 const geoUser = process.env.GEO_USER
 const apiKey = process.env.MC_API_KEY
 
-// http://api.geonames.org/postalCodeSearchJSON?postalcode=9011&maxRows=5&username=demo
+// http://api.geonames.org/postalCodeSearchJSON?placename=Melbourne&maxRows=5&username=demo example geoname api call
 
 
 document.getElementById('destForm').addEventListener('submit', handleSubmit)
@@ -20,7 +20,7 @@ async function handleSubmit(e){
 
     getGeoName(geoBaseURL, dest, geoUser) // Get geo name location
     .then(function(data){
-        console.log(data.postalCodes[0].countryCode)
+        console.log(data.postalCodes[0].countryCode) // TO-DO Remove
         // postData('/add', {latitude: data.postalCodes[0].lat, longitude: data.postalCodes[0].lng, country: data.postalCodes[0].countryCode, placeName: data.postalCodes[0].placeName}) // TO-DO fix exact values
         // updateUI() // Update UI to display the data
     })
@@ -39,13 +39,6 @@ const getGeoName = async (geoBaseURL, dest, geoUser) =>{
         console.log("error", error)
     }
 }
-
-
-
-
-
-
-
 
 
 
