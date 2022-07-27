@@ -19,39 +19,34 @@ async function handleSubmit(e){
     e.preventDefault()
 
     const dest = document.forms["destForm"]["dest"].value
-    const date = new Date(document.forms["destForm"]["arival"].value)
+    const depDate = new Date(document.forms["destForm"]["departure"].value)
+    const arvDate = new Date(document.forms["destForm"]["arival"].value)
     let d = new Date() // Today's date
-    let difference = date.getTime() - d.getTime(); // Converts difference into miliseconds
+    let difference = depDate.getTime() - d.getTime(); // Converts difference into miliseconds
     let daysTill = Math.ceil(difference / (1000 * 3600 * 24)); // Turns those miliseconds into days
     console.log(`Days until trip: ${daysTill}`) // TO-DO impliment into UI
 
     getGeoName(geoBaseURL, dest, geoUser) // Get geo name location
-    .then(function(geoData){
+    .then(async function(geoData){
         if (daysTill < 7) { // If arrival date is less than 16 days
-            getCurrentWeather(curWethbitBaseURL, geoData.geonames[0].lat, geoData.geonames[0].lng, wethbitApi)
+            await getCurrentWeather(curWethbitBaseURL, geoData.geonames[0].lat, geoData.geonames[0].lng, wethbitApi)
             .then(function(curData){
-                console.log(curData.data[0].temp) // TO-DO impliment into UI
-                console.log(curData.data[0].datetime)
+                postData('/add', {tempHigh: curData.data[0].temp, tempLow: curData.data[0].temp, country: curData.data[0].country_code, dest: curData.data[0].city_name, wethDesc: curData.data[0].weather.description})
             })
         } else if (daysTill > 16) { // If arrival date is greater than 16 days
-            console.log("Cannot forecast weather this far ahead") // TO-DO impliment into UI
+            await postData('/add', {Temp: "Cannot forecast weather this far ahead"})
         } else { // If arrival date is between 7-16 days
-            getForecastWeather(forWethbitBaseURL, geoData.geonames[0].lat, geoData.geonames[0].lng, wethbitApi)
+            await getForecastWeather(forWethbitBaseURL, geoData.geonames[0].lat, geoData.geonames[0].lng, wethbitApi)
             .then(function(forData){
-                console.log(forData.data[daysTill - 1].temp) // TO-DO impliment into UI
-                console.log(forData.data[daysTill - 1].valid_date)
+                postData('/add', {tempHigh: forData.data[daysTill - 1].high_temp, tempLow: forData.data[daysTill - 1].low_temp, dest: forData.city_name, country: forData.country_code, wethDesc: forData.data[daysTill - 1].weather.description})
             })
         }
-
-        getDestImg(pixBaseURL, geoData.geonames[0].name, pixApi)
-        .then(function(imgData){
-            console.log(imgData.hits[0].webformatURL)
+        await getDestImg(pixBaseURL, geoData.geonames[0].name, pixApi)
+        .then(async function(imgData){
+            await postData('/add', {img: imgData.hits[0].webformatURL, departure: document.forms["destForm"]["departure"].value, arival: document.forms["destForm"]["arival"].value})
+            await updateUI()
         })
-        
-        // postData('/add', {latitude: data.postalCodes[0].lat, longitude: data.postalCodes[0].lng, country: data.postalCodes[0].countryCode, placeName: data.postalCodes[0].placeName}) // TO-DO fix exact values
-        // updateUI() // Update UI to display the data
     })
-
 }
 
 
@@ -60,7 +55,6 @@ const getGeoName = async (geoBaseURL, dest, geoUser) =>{
     const res = await fetch(`${geoBaseURL}name=${dest}&maxRows=5&username=${geoUser}`)
     try { // API call data
         const data = await res.json()
-        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
@@ -96,7 +90,6 @@ const getDestImg = async (pixBaseURL, dest, pixApi) =>{
     const res = await fetch(`${pixBaseURL}${pixApi}&q=${encodeURIComponent(dest)}&orientation=horizontal&category=travel&per_page=5`)
     try { // API call data
         const data = await res.json()
-        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
@@ -104,74 +97,72 @@ const getDestImg = async (pixBaseURL, dest, pixApi) =>{
 }
 
 
+// Post function
+const postData = async (url = '', data= {}) => {
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify(data),
+    })
+    try {
+        //Get analysed data from server side
+        const analysedData = await response.json();
+        return analysedData
+    } catch(error) {
+        console.log("error", error);
+    }
+}
 
 
+// Update UI
+const updateUI = async () => {
+    const request = await fetch('/data') // GET request from /data to access projectData object
+    try{ //Edit innerhtml to fill info from projectData
+        const projectData = await request.json()        
+        document.getElementById('destPrev').setAttribute("src", `${projectData.img}`)
+        document.getElementById('destCard').innerHTML = `Your trip to: ${projectData.dest}, ${projectData.country}`
 
+        document.getElementById('arriving').innerHTML = `Arriving: ${projectData.arival}`
+        document.getElementById('departing').innerHTML = `Departing: ${projectData.departure}`
 
+        document.getElementById('tempHigh').innerHTML = `<strong>High: </strong>${projectData.tempHigh}`
+        document.getElementById('tempLow').innerHTML = `<strong>Low: </strong>${projectData.tempLow}`
+        document.getElementById('wethDesc').innerHTML = projectData.wethDesc
+        
+        document.getElementById('resultsCard').style.display = "grid"
+    } catch(error) {
+      console.log("error", error)
+    }
+}
 
-
-
-
-
-
-
-// async function handleSubmit(e) {
-//     e.preventDefault()
-
-//     // check what text was put into the form field
-//     let formText = document.getElementById('name').value
-//     Client.checkForName(formText)
-//     console.log("::: Form Submitted :::") // Verify submission
-    
-//     getMeaningCloudData(baseURL, formText, apiKey) // Get weather info through API Call
-//     .then(function(data){
-//         postData('/add', {data}) // Send data to the server to be added to the database
-//         updateUI() // Update UI to display the data
-//     })
-// }
-
-// // Meaning Cloud API call
-// const getMeaningCloudData = async (baseURL, formText, apiKey)=>{
-//     const result = await fetch(`${baseURL}${apiKey}&txt=${formText}&lang=en`)
-//     try {
-//         const response = await result.json()
-//         //Return API Call result
-//         console.log(response)
-//         return response
-//     } catch(error) {
-//         console.log("error", error)
-//     }
-// } 
-
-// // Update UI
+// // Update UI // TO-DO Remove
 // const updateUI = async () => {
 //     const request = await fetch('/data') // GET request from /data to access projectData object
+//     const fragment = document.createDocumentFragment();
 //     try{ //Edit innerhtml to fill info from projectData
 //         const projectData = await request.json()
-//         document.getElementById('results').innerHTML = `<p>Confidence: ${projectData.confidence}</p>
-//                                                         <p>Agreement: ${projectData.agreement}</p>
-//                                                         <p>Score Tag: ${projectData.score_tag}</p>`
+
+//         const newTitle = document.createElement('strong');
+//         newTitle.innerHTML = 'Form Results:'
+//         fragment.appendChild(newTitle);
+
+//         for (const data in projectData) {
+//             if (data !== 'img') {
+//             const newElement = document.createElement('p');
+//             newElement.innerHTML = `<strong>${data}:</strong> ${projectData[data]}`
+//             fragment.appendChild(newElement);
+//             } else {
+//                 document.getElementById('destPrev').setAttribute("src", `${projectData.img}`);
+//             }
+//         }
+        
+//         document.getElementById('results').appendChild(fragment);
+//         document.getElementById('resultsCard').style.display = "grid"
 //     } catch(error) {
 //       console.log("error", error)
-//     }
-//   }
-
-// // Post function
-// const postData = async (url = '', data= {}) => {
-//     const response = await fetch(url, {
-//         method: "POST",
-//         credentials: "same-origin",
-//         headers: {
-//             "Content-Type":"application/json",
-//         },
-//         body: JSON.stringify(data),
-//     })
-//     try {
-//         //Get analysed data from server side
-//         const analysedData = await response.json();
-//         return analysedData
-//     } catch(error) {
-//         console.log("error", error);
 //     }
 // }
 

@@ -26,18 +26,49 @@
         <section>
             <form id="destForm" name="destForm"> 
                 <label for="dest">Destination:</label><input id="dest" type="text" name="dest" placeholder="Enter destination">
-                <label for="arival">Arival Date:</label><input type="date" id="arival" name="arival">
+                <div id="flightDates">
+                    <label for="arival">Arival Date:</label><input type="date" id="arival" name="arival">
+                    <label for="departure">Departure Date:</label><input type="date" id="departure" name="departure">
+                </div>
                 <input type="submit" name="sub" value="Submit">
             </form>
         </section>
-        <section>
-            <strong>Form Results:</strong>
-            <div id="results"></div>
+
+        <!-- <section id="resultsCard">
+            <img src="https://pixabay.com/get/g7473ae63afbde4ee2140969d1bb35ff11e3c0e2084d50ef445d132bfb4f44e898e9551b562ffe860276c3cfa5374a349_640.jpg" id="destPrev">
+            <h2 id="destCard">Your trip to: Melbourne, AU</h2>
+            <div id="flightDatesCard">
+                <h3 id="arriving">Arriving: 30/07/2022</h3>
+                <h3 id="departing">Departing: 6/08/2022</h3>
+            </div>
+            <div id="results">
+                <strong id="forecast">Forecast on arrival:</strong>
+                <p id="tempHigh"><strong>High: </strong>13.9</p>
+                <p id="tempLow"><strong>Low: </strong>13.9</p>
+                <p id="wethDesc">Broken clouds</p>
+            </div>
+        </section> -->
+
+        <section id="resultsCard">
+            <img id="destPrev" src="">
+            <h2 id="destCard"></h2>
+            <div id="flightDatesCard">
+                <h3 id="arriving"></h3>
+                <h3 id="departing"></h3>
+            </div>
+            <div id="results">
+                <strong id="forecast">Forecast on arrival:</strong>
+                <p id="tempHigh"></p>
+                <p id="tempLow"></p>
+                <p id="wethDesc"></p>
+            </div>
         </section>
     </main>
     <footer>
         <div class="logo">
-            <img src="https://via.placeholder.com/100x50" alt="logo">
+            <a href="https://pixabay.com/">
+                <img src="https://pixabay.com/static/img/public/medium_rectangle_b.png" alt="Pixabay">
+            </a>
             <h2>Travelah</h2>
         </div>
         <div id="socials"> <!--  leads to blank pages for now -->

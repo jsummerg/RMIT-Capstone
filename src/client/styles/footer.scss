@@ -6,4 +6,7 @@ footer {
     padding: 10px 40px;
     background: $primary-color;
     color: $white;
+    img {
+        max-width: 100px;
+    }
 }

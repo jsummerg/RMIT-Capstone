@@ -1,33 +1,4 @@
 /* Small Screens */
 @media (max-width:600px) {
-    /* DIMENSIONS */
-    header {
-        height: 5vh;
-    }
-
-    main {
-        min-height: 90vh;
-    }
-
-    // #container { // TO-DO remove?
-    //     grid-template-columns: 5vw 1fr 5vw;
-    // }
-
-    /* TYPOGRAPHY */
-    body {
-        font-size: .8em;
-    }
-
-    .default-button { /* Same as the body */
-        font-size: .8em;
-    }
-
-    h1 {
-        font-size: 1.5em
-    }
-    
-    h2, h3 {
-        font-size: 1em;
-    }
 
 }

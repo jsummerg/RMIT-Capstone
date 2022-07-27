@@ -36,3 +36,4 @@ npm run test
 ## Usage
 [(Back to top)](##table-of-contents)
 TO-DO
+Extended project choice: Add end date and display length of trip.

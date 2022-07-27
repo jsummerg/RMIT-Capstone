@@ -1,4 +1,3 @@
-import { checkForName } from './js/nameChecker'
 import { handleSubmit } from './js/formHandler'
 
 import './styles/_variables.scss'
@@ -11,7 +10,6 @@ import './styles/mobile.scss'
 import './styles/tablet.scss'
 
 export {
-    checkForName,
     handleSubmit
 }
 

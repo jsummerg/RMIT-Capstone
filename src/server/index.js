@@ -46,9 +46,9 @@ app.listen(3001, function () {
 })
 
 app.post('/add', function (req, res) {
-    projectData["agreement"] = req.body.data.agreement,
-    projectData["confidence"] = req.body.data.confidence,
-    projectData["score_tag"] = req.body.data.score_tag
-    console.log(projectData)
+    const inc = req.body
+    for (const info in inc) {
+        projectData[`${info}`] = inc[`${info}`]
+    }
     res.send(projectData)
   })
