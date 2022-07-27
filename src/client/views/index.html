@@ -24,10 +24,10 @@
             <p>Please input your details:</p>
         </section>
         <section>
-            <!-- TO-DO remove event listeners from html -->
-            <form class="mainForm" onsubmit="return Client.handleSubmit(event)"> 
-                <input id="name" type="text" name="input" value="" placeholder="Name">
-                <input type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+            <form id="destForm" name="destForm"> 
+                <label for="dest">Destination:</label><input id="dest" type="text" name="dest" placeholder="Enter destination">
+                <label for="arival">Arival Date:</label><input type="date" id="arival" name="arival">
+                <input type="submit" name="sub" value="Submit">
             </form>
         </section>
         <section>
