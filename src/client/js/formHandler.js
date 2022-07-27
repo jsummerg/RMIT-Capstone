@@ -19,13 +19,16 @@ async function handleSubmit(e){
     e.preventDefault()
 
     const dest = document.forms["destForm"]["dest"].value
-    const depDate = new Date(document.forms["destForm"]["departure"].value)
     const arvDate = new Date(document.forms["destForm"]["arival"].value)
+    const depDate = new Date(document.forms["destForm"]["departure"].value)
     let d = new Date() // Today's date
-    let difference = depDate.getTime() - d.getTime(); // Converts difference into miliseconds
+    let difference = arvDate.getTime() - d.getTime(); // Converts difference into miliseconds
     let daysTill = Math.ceil(difference / (1000 * 3600 * 24)); // Turns those miliseconds into days
-    console.log(`Days until trip: ${daysTill}`) // TO-DO impliment into UI
 
+    let tripDiff = depDate.getTime() - arvDate.getTime(); // Converts difference into miliseconds
+    let tripLength = Math.ceil(tripDiff / (1000 * 3600 * 24)); // Turns those miliseconds into days
+
+    await postData('/add', {daysTill: daysTill, tripLength: tripLength})
     getGeoName(geoBaseURL, dest, geoUser) // Get geo name location
     .then(async function(geoData){
         if (daysTill < 7) { // If arrival date is less than 16 days
@@ -123,15 +126,16 @@ const updateUI = async () => {
     try{ //Edit innerhtml to fill info from projectData
         const projectData = await request.json()        
         document.getElementById('destPrev').setAttribute("src", `${projectData.img}`)
-        document.getElementById('destCard').innerHTML = `Your trip to: ${projectData.dest}, ${projectData.country}`
+        document.getElementById('destCard').innerHTML = `${projectData.daysTill} days until your trip to: ${projectData.dest}, ${projectData.country}`
 
+        document.getElementById('tripLength').innerHTML = `Trip Length: ${projectData.tripLength} days`
         document.getElementById('arriving').innerHTML = `Arriving: ${projectData.arival}`
         document.getElementById('departing').innerHTML = `Departing: ${projectData.departure}`
 
         document.getElementById('tempHigh').innerHTML = `<strong>High: </strong>${projectData.tempHigh}`
         document.getElementById('tempLow').innerHTML = `<strong>Low: </strong>${projectData.tempLow}`
         document.getElementById('wethDesc').innerHTML = projectData.wethDesc
-        
+
         document.getElementById('resultsCard').style.display = "grid"
     } catch(error) {
       console.log("error", error)
