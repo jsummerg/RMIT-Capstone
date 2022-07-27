@@ -69,7 +69,6 @@ const getCurrentWeather = async (forWethbitBaseURL, lat, lon, wethbitApi) =>{
     const res = await fetch(`${forWethbitBaseURL}lat=${lat}&lon=${lon}&key=${wethbitApi}`)
     try { // API call data
         const data = await res.json()
-        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
@@ -81,7 +80,6 @@ const getForecastWeather = async (curWethbitBaseURL, lat, lon, wethbitApi) =>{
     const res = await fetch(`${curWethbitBaseURL}lat=${lat}&lon=${lon}&key=${wethbitApi}`)
     try { // API call data
         const data = await res.json()
-        console.log(data) // TO-DO Remove
         return data
     } catch(error) {
         console.log("error", error)
@@ -141,33 +139,5 @@ const updateUI = async () => {
       console.log("error", error)
     }
 }
-
-// // Update UI // TO-DO Remove
-// const updateUI = async () => {
-//     const request = await fetch('/data') // GET request from /data to access projectData object
-//     const fragment = document.createDocumentFragment();
-//     try{ //Edit innerhtml to fill info from projectData
-//         const projectData = await request.json()
-
-//         const newTitle = document.createElement('strong');
-//         newTitle.innerHTML = 'Form Results:'
-//         fragment.appendChild(newTitle);
-
-//         for (const data in projectData) {
-//             if (data !== 'img') {
-//             const newElement = document.createElement('p');
-//             newElement.innerHTML = `<strong>${data}:</strong> ${projectData[data]}`
-//             fragment.appendChild(newElement);
-//             } else {
-//                 document.getElementById('destPrev').setAttribute("src", `${projectData.img}`);
-//             }
-//         }
-        
-//         document.getElementById('results').appendChild(fragment);
-//         document.getElementById('resultsCard').style.display = "grid"
-//     } catch(error) {
-//       console.log("error", error)
-//     }
-// }
 
 export { handleSubmit }

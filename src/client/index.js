@@ -12,5 +12,3 @@ import './styles/tablet.scss'
 export {
     handleSubmit
 }
-
-console.log('fired'); // TO-DO REMOVE

@@ -2,7 +2,6 @@
 var path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser');
-// const fetch = require('node-fetch') TO-DO
 
 // Express
 const app = express()
@@ -34,7 +33,7 @@ app.get('/', function (req, res) {
 })
 
 // Retrieve projectData
-app.get('/data', function (req, res) { // TO-DO Verify
+app.get('/data', function (req, res) {
     console.log(projectData)
     res.send(projectData)
     console.log("data retreieved")
