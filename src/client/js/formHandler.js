@@ -24,15 +24,17 @@ async function handleSubmit(e){
 
     getGeoName(geoBaseURL, dest, geoUser) // Get geo name location
     .then(function(geoData){
-        if (daysTill < 7) {
+        if (daysTill < 7) { // If arrival date is less than 16 days
             getCurrentWeather(curWethbitBaseURL, geoData.postalCodes[0].lat, geoData.postalCodes[0].lng, wethbitApi)
             .then(function(curData){
-                console.log(curData)
+                console.log(curData.data[0].temp) // TO-DO impliment into UI
             })
-        } else {
-            getForecastWeather(forWethbitBaseURL, data.postalCodes[0].lat, data.postalCodes[0].lng, wethbitApi)
+        } else if (daysTill > 16) { // If arrival date is greater than 16 days
+            console.log("Cannot forecast weather this far ahead") // TO-DO impliment into UI
+        } else { // If arrival date is between 7-16 days
+            getForecastWeather(forWethbitBaseURL, geoData.postalCodes[0].lat, geoData.postalCodes[0].lng, wethbitApi)
             .then(function(forData){
-                console.log(forData)
+                console.log(forData.data[daysTill - 1].temp) // TO-DO impliment into UI
             })
         }
         console.log(geoData.postalCodes[0].countryCode) // TO-DO Remove
