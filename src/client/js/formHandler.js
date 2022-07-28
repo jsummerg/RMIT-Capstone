@@ -134,7 +134,7 @@ const updateUI = async () => {
         document.getElementById('tempLow').innerHTML = `<strong>Low: </strong>${projectData.tempLow}`
         document.getElementById('wethDesc').innerHTML = projectData.wethDesc
 
-        document.getElementById('resultsCard').style.display = "grid"
+        document.getElementById('resultsCard').classList.remove("hideMe")
     } catch(error) {
       console.log("error", error)
     }
