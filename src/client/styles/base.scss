@@ -20,51 +20,51 @@ section {
 /* Medium Screens */
 @media (min-width: 601px) and (max-width:900px) {
     /* DIMENSIONS */
-    main {
-        min-height: 90vh;
-    }
+    // main {
+    //     // min-height: 90vh;
+    // }
 
-    /* TYPOGRAPHY */
-    body {
-        font-size: .9em;
-    }
+    // /* TYPOGRAPHY */
+    // body {
+    //     font-size: .9em;
+    // }
 
-    .default-button { /* Same as the body */
-        font-size: .9em;
-    }
+    // .default-button { /* Same as the body */
+    //     font-size: .9em;
+    // }
 
-    h1 {
-        font-size: 4em
-    }
+    // h1 {
+    //     font-size: 3em
+    // }
     
-    h2, h3 {
-        font-size: 1em;
-    }
+    // h2, h3 {
+    //     font-size: 1em;
+    // }
 }
 
 /* Small Screens */
 @media (max-width:600px) {
     /* DIMENSIONS */
 
-    main {
-        min-height: 90vh;
-    }
+    // main {
+    //     min-height: 90vh;
+    // }
 
-    /* TYPOGRAPHY */
-    body {
-        font-size: .8em;
-    }
+    // /* TYPOGRAPHY */
+    // body {
+    //     font-size: .8em;
+    // }
 
-    .default-button { /* Same as the body */
-        font-size: .8em;
-    }
+    // .default-button { /* Same as the body */
+    //     font-size: .8em;
+    // }
 
-    h1 {
-        font-size: 1.5em
-    }
+    // h1 {
+    //     font-size: 1.5em
+    // }
     
-    h2, h3 {
-        font-size: 1em;
-    }
+    // h2, h3 {
+    //     font-size: 1em;
+    // }
 
 }

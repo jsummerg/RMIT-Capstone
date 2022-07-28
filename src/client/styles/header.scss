@@ -6,20 +6,32 @@ header {
     padding: 10px 40px;
     background: $primary-color;
     color: $white;
-}
-
-.logo {
-    display: flex;
-}
-
-/* Medium Screens */ // TO-DO Remove
-@media (min-width: 601px) and (max-width:900px) {
-    header {
-        height: 5vh;
+    .nav {
+        text-align: center; 
+    } 
+    li {
+        display: inline-block;
+        padding: 20px;
+    }
+    .logo {
+        display: flex;
+    }
+    h1 {
+        padding: 20px;
     }
 }
 
-/* Small Screens */ // TO-DO Remove
+
+/* Medium Screens */
+@media (min-width: 601px) and (max-width:900px) {
+    header {
+        h1 {
+            
+        }
+    }
+}
+
+/* Small Screens */
 @media (max-width:600px) {
 
 }

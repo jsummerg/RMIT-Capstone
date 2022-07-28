@@ -66,9 +66,7 @@ form {
 
 /* Small Screens */
 @media (max-width:600px) {
-    #flightDates {
-        display: block;
-    }
+    
     #resultsCard {
         display: flex;
         flex-direction: column;
@@ -80,6 +78,9 @@ form {
         height: 70vh;
     }
     form {
-        height: 70vh;
+        height: 40vh;
+        #flightDates {
+            display: block;
+        }
     }
 }
