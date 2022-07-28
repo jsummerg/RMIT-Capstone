@@ -14,16 +14,12 @@ main {
 
 section {
     max-width: 80vw;
-    margin: 50px auto;
+    margin: 5vw auto;
 }
 
 /* Medium Screens */
 @media (min-width: 601px) and (max-width:900px) {
     /* DIMENSIONS */
-    header {
-        height: 5vh;
-    }
-
     main {
         min-height: 90vh;
     }
@@ -38,7 +34,7 @@ section {
     }
 
     h1 {
-        font-size: 1.5em
+        font-size: 4em
     }
     
     h2, h3 {
@@ -49,9 +45,6 @@ section {
 /* Small Screens */
 @media (max-width:600px) {
     /* DIMENSIONS */
-    header {
-        height: 5vh;
-    }
 
     main {
         min-height: 90vh;

@@ -7,3 +7,15 @@ header {
     background: $primary-color;
     color: $white;
 }
+
+/* Medium Screens */ // TO-DO Remove
+@media (min-width: 601px) and (max-width:900px) {
+    header {
+        height: 5vh;
+    }
+}
+
+/* Small Screens */ // TO-DO Remove
+@media (max-width:600px) {
+
+}

@@ -8,7 +8,8 @@ module.exports = {
     entry: './src/client/index.js',
     output: {
         libraryTarget: 'var',
-        library: 'Client'
+        library: 'Client',
+        path: path.resolve(__dirname, "dist"),
     },
     mode: 'development',
     devtool: 'source-map',
@@ -33,6 +34,7 @@ module.exports = {
         }),
         new Dotenv(),
         new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist/**/*")],
             // Simulate the removal of files
             dry: true,
             // Write Logs to Console
