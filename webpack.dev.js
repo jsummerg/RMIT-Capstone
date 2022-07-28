@@ -6,14 +6,15 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: './src/client/index.js',
-    output: {
+    output: { 
+        path: path.resolve(__dirname, "dist"),
         libraryTarget: 'var',
         library: 'Client',
-        path: path.resolve(__dirname, "dist"),
     },
     mode: 'development',
+    target: 'web',
     devtool: 'source-map',
-    stats: 'verbose',
+    // stats: 'verbose',
     module: {
         rules: [
             {
@@ -34,11 +35,11 @@ module.exports = {
         }),
         new Dotenv(),
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist/**/*")],
+            // cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist")],
             // Simulate the removal of files
             dry: true,
             // Write Logs to Console
-            verbose: true,
+            // verbose: true,
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false

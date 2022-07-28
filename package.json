@@ -7,7 +7,7 @@
     "start": "node src/server/index.js",
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack  --config webpack.dev.js",
-    "build-dev-live": "webpack-dev-server  --config webpack.dev.js --open"
+    "build-dev-live": "webpack-dev-server  --config webpack.dev.js --open --hot"
   },
   "keywords": [],
   "author": "",
