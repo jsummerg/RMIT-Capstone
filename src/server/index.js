@@ -24,7 +24,7 @@ const cors = require('cors')
 app.use(cors());
 
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Routes
 app.get('/', function (req, res) {

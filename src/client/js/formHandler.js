@@ -12,8 +12,10 @@ const pixApi = process.env.PIXABAY_API
 // https://api.weatherbit.io/v2.0/forecast/daily?lat=35.7796&lon=-78.6382&key=API_KEY example forecast weatherbit api call
 // https://pixabay.com/api/?key=API_KEY&q=Melbourne&category=travel&orientation=horizontal&per_page=5 example pixabay api call
 
+addEventListener('DOMContentLoaded', (e) => {
+    document.getElementById('destForm').addEventListener('submit', handleSubmit)
+});
 
-document.getElementById('destForm').addEventListener('submit', handleSubmit)
 
 async function handleSubmit(e){
     e.preventDefault()
